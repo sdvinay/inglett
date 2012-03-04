@@ -1,0 +1,29 @@
+Start by selecting N working lineups at random.
+
+In each "generation", pair off the N lineups, and choose the winner.  This give us N/2 winners.
+Pair the winners off randomly into N/4 pairs.  Mate these pairs.
+Pair the winners off randomly again into N/4 pairs.  Mate these pairs with mutations.
+  (Optionally, just make mutation part of the mating algorithm, with some probability)
+Between the winners and the children, we have N/2 + N/4 + N/4 == N lineups now.  So iterate gain
+
+To select a lineup (or to fill out a partial lineup):
+	Randomly choose an open position
+	Randomly choose a player at that open position, from among those that won't put the teamover the cap
+	Repeat (It's possible that we may have to abort near the end and start over)
+
+To merge two lineups:
+	Repeat until we have a lineup that fits under the cap:
+		Repeat this over positions:
+			Randomly choose a position
+			If either player would put us over the cap, abort this iteration of the lineup
+			If exactly one player will fit under the cap, pick that player
+			If either player will fit under the cap, randomly choose one of the two players 
+(This may be implemented recursively as MergeLineups(merged, source1, source2)
+
+To mutate a lineup:
+Mutate(lineup, numMutations)
+	Randomly pick numMutations positions, and delete those from the lineup
+	Use the initial FillLineup to fill out those spots
+
+Matchup(lineup1, lineup2):
+	Compute total stats for the two teams and choose a winner.
