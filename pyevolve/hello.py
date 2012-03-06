@@ -8,7 +8,7 @@ import csv
 import code
 import pyevolve
 
-positions = ['1B', '2B', '3B']
+positions = ['C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF']
 
 playerPT = {}
 playerScores = {}
@@ -19,7 +19,7 @@ for pos in positions:
 	playerScores[pos] = []
 	playerNames[pos] = []
 
-f = open ("../stats_02.csv", 'r')
+f = open ("../stats_03.csv", 'r')
 statReader = csv.reader(f)
 for row in statReader:
 	pos = row[1]
@@ -43,7 +43,7 @@ def eval_func(chromosome):
 # For interactive mode
 	  # The generation that Pyevolve will enter on
 # the interactive mode
-INTERACTIVE_STOP = 0
+INTERACTIVE_STOP = 100
  
 def evolve_callback(ga_engine):
    """ The callback function to enter on interactive mode"""
@@ -69,8 +69,12 @@ genome.mutator.set(Mutators.G1DListMutatorIntegerRange)
 genome.crossover.set(Crossovers.G1DListCrossoverUniform)
 ga = GSimpleGA.GSimpleGA(genome, interactiveMode=True)
 #ga.setPopulationSize(1024)
-#ga.setGenerations(20)
+ga.setGenerations(200)
 ga.setMutationRate(.1)
 #ga.stepCallback.set(evolve_callback)
 ga.evolve(freq_stats=10)
-print ga.bestIndividual()
+#print ga.bestIndividual().genomeList
+
+for i in range(0, len(positions)):
+	pos = positions[i]
+	print playerNames[pos][ga.bestIndividual().genomeList[i]]
