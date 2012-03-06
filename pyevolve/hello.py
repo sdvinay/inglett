@@ -75,6 +75,9 @@ ga.setMutationRate(.1)
 ga.evolve(freq_stats=10)
 #print ga.bestIndividual().genomeList
 
+print ga.bestIndividual().getRawScore()
+
 for i in range(0, len(positions)):
 	pos = positions[i]
-	print playerNames[pos][ga.bestIndividual().genomeList[i]]
+	playerIndex = ga.bestIndividual().genomeList[i]
+	print playerNames[pos][playerIndex].ljust(20), str(playerScores[pos][playerIndex]).rjust(3), playerPT[pos][playerIndex]
