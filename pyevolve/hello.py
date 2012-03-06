@@ -15,7 +15,7 @@ MINIMUM_PT = 4200
 # GA configuration
 MUTATION_RATE = .2
 POPULATION_SIZE = 1024
-NUM_GENERATIONS = 20000
+NUM_GENERATIONS = 200
 
 # Initialize the 2D-arrays that will keep the player/stat data
 playerPT = {}
