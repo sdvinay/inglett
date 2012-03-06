@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
 from pyevolve import G1DList
+from pyevolve import Mutators
+from pyevolve import Crossovers
 from pyevolve import GSimpleGA
 import csv
 import code
@@ -41,7 +43,7 @@ def eval_func(chromosome):
 # For interactive mode
 	  # The generation that Pyevolve will enter on
 # the interactive mode
-INTERACTIVE_STOP = 1
+INTERACTIVE_STOP = 0
  
 def evolve_callback(ga_engine):
    """ The callback function to enter on interactive mode"""
@@ -61,11 +63,14 @@ def evolve_callback(ga_engine):
  
 
 genome = G1DList.G1DList(len(positions))
-genome.setParams(rangemin=0, rangemax=10)
+genome.setParams(rangemin=0, rangemax=99)
 genome.evaluator.set(eval_func)
+genome.mutator.set(Mutators.G1DListMutatorIntegerRange)
+genome.crossover.set(Crossovers.G1DListCrossoverUniform)
 ga = GSimpleGA.GSimpleGA(genome, interactiveMode=True)
 #ga.setPopulationSize(1024)
-#ga.setGenerations(1)
-ga.stepCallback.set(evolve_callback)
+#ga.setGenerations(20)
+ga.setMutationRate(.1)
+#ga.stepCallback.set(evolve_callback)
 ga.evolve(freq_stats=10)
 print ga.bestIndividual()
