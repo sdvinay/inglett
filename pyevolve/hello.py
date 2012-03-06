@@ -4,6 +4,7 @@ from pyevolve import G1DList
 from pyevolve import Mutators
 from pyevolve import Crossovers
 from pyevolve import GSimpleGA
+from sys import argv
 import csv
 import code
 import pyevolve
@@ -28,7 +29,7 @@ for pos in positions:
 	playerNames[pos] = []
 
 # read in the stat file, into the 2D array
-f = open ("../stats_03.csv", 'r')
+f = open (argv[1], 'r')
 statReader = csv.reader(f)
 for row in statReader:
 	pos = row[1]
